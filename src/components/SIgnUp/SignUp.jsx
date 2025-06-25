@@ -1,86 +1,96 @@
-import React from 'react'
-import { GiFullMotorcycleHelmet } from "react-icons/gi";
-import { SiYamahamotorcorporation } from "react-icons/si";
-
+import { useState } from 'react';
+import { GiFullMotorcycleHelmet } from 'react-icons/gi';
+import { SiYamahamotorcorporation } from 'react-icons/si';
+import { FcGoogle } from 'react-icons/fc';
+import axios from 'axios';
 
 export default function SignUp() {
+
+  const [data, SetData] = useState({})
+
+  const SignData = [
+    { name: 'name', placeholder: 'Enter your name', type: 'text' },
+    { name: 'email', placeholder: 'Enter your email', type: 'email' },
+    { name: 'password', placeholder: 'Enter your password', type: 'password' },
+  ]
+
+  const objData = (e) => {
+    SetData({ ...data, [e.target.name]: e.target.value })
+  }
+
+  const handleSignupDB = async (e) => {
+
+    try {
+      e.preventDefault()
+      const response = await axios.post('http://localhost:8080/CreateUser', data)
+
+      console.log(response)
+
+    }
+    catch (err) {
+
+      alert(err.response?.data?.msg || 'An error occurred')
+    }
+  }
+
   return (
-   
- <div className='flex'>
+    <div className="flex flex-col lg:flex-row h-screen font-sans">
+      {/* Left Section */}
+      <div className="lg:w-1/2 w-full text-white bg-gradient-to-r from-blue-600 to-purple-600 flex flex-col justify-center items-center p-10 gap-10">
+        <div className="flex items-center gap-4 text-6xl font-bold">
+          <GiFullMotorcycleHelmet className="text-white" />
+          <span>SuperBike</span>
+        </div>
 
-{/* left */}
-<div className='w-1/2 text-white bg-gradient-to-r from-blue-500 to-purple-500 h-screen'>
+        <div className="text-8xl">
+          <SiYamahamotorcorporation />
+        </div>
 
-{/* name */}
-<div className='flex items-center justify-center gap-4 text-9xl'>
-  <div>
-<GiFullMotorcycleHelmet />
+        <div className="text-3xl font-semibold text-center">
+          <span className="font-extrabold text-white">RIDING</span> is everything.
+        </div>
 
-  </div>
-  <div>
-    SuperBike
-  </div>
+        <ul className="text-xl space-y-4 text-center max-w-md">
+          <li>Four wheels move the body; two wheels move the soul.</li>
+          <li>Life is short, buy the motorcycle, have a ride, live your dreams.</li>
+        </ul>
+      </div>
 
-</div>
+      {/* Right Section */}
+      <div className="lg:w-1/2 w-full bg-gradient-to-r from-purple-600 to-blue-600 flex flex-col justify-center items-center px-8 py-12 text-white gap-8">
+        <div className="text-center">
+          <h2 className="text-4xl font-extrabold mb-2">VROOOOM!</h2>
+          <p className="text-xl">Sign Up To Get News 'bout The Latest Biker Events</p>
+        </div>
 
-{/* img */}
-<div className='text-9xl flex items-center justify-center h-60'>
-   <SiYamahamotorcorporation />
-   {/* text */}
-</div>
-      <ul className='text-5xl flex items-center justify-center gap-3'><ul className='font-extrabold'>RIDING</ul> is everything.</ul>
-<div>
+        {/* Google Sign Up */}
+        <button className="flex items-center gap-3 bg-white text-black px-6 py-2 rounded-full shadow-md hover:scale-105 transition-transform duration-300">
+          <FcGoogle className="text-2xl" />
+          <span className="text-md font-medium">Sign Up with Google</span>
+        </button>
 
-</div>
-{/* moto */}
-<div className='text-2xl flex flex-col  justify-center h-60'>
-  <li>Four wheels move the body; two wheels move the soul.</li>
-<li>Life is short, buy the motorcycle, have a ride, live your dreams.</li>
-</div>
-</div>
+        {/* Divider */}
+        <div className="w-full max-w-md border-b border-white/30"></div>
 
+        {/* Input Fields */}
+        <form className="flex flex-col gap-5 w-full max-w-md">
 
+          {
+            SignData.map(({ name, placeholder, type }, index) => (
+              <input onChange={objData} key={index} type={type} name={name} placeholder={placeholder} className="p-3 rounded-md bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-white" />
+            ))
+          }
 
-{/* right */}
-<div className='w-1/2 text-white bg-gradient-to-r from-purple-500 to-blue-500 h-screen'>
-  {/* join */}
-     <div className='flex flex-col justify-between text-4xl items-center '>
-         <ul className='font-extrabold'>VROOOOM!</ul>
-         <ul> Sign Up To Get News 'bout The Latest  Biker Events  </ul>
-     </div>
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" className="accent-white" />
+            Save Password
+          </label>
 
-{/* methods */}
-<div className='flex items-center h-30 w-fit'>
-<ul>Sign Up With Google</ul>
-</div>
-
-
-{/* info */}
-<div className='flex flex-col gap-7'>
-
-<div>
-<input type="text" className='border-2 border-gray-300 rounded-md p-2 w-full' placeholder='Enter your name' />
-</div>
-<div>
-  <input type="email" className='border-2 border-gray-300 rounded-md p-2 w-full' placeholder='Enter your Email'/>
-</div>
-<div>
-  <input type="password" className='border-2 border-gray-300 rounded-md p-2 w-full' placeholder='Enter Password' />
-</div>
-<div>
-  <input type="checkbox" className='border-2 border-gray-300 rounded-md p-2 w-full ' /><span className='flex justify-center'>Save Password</span>
-</div>
-<div className='flex items-center justify-center'>
-  <button type="submit " >Sign Up</button>
-</div>
-</div>
-
-
-
-</div>
-
-</div>
-  
-
-  )
+          <button onClick={handleSignupDB} type="submit" className="bg-white text-blue-600 font-semibold py-3 rounded-md hover:bg-gray-200 transition-colors">
+            Sign Up
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
