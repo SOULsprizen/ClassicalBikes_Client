@@ -10,6 +10,7 @@ import Dealers from './components/Dealer/Dealers.jsx'
 import PartsandAccessories from './components/Parts/PartsandAccessories.jsx'
 import Feedback from './components/Feedback/Feedback.jsx'
 import Shop from './components/Shop/Shop.jsx'
+import OtpVerification from './components/OtpVerification.jsx'
 export default function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ export default function App() {
         <Route path='/parts-accessories' element={<PartsandAccessories />} />
         <Route path='/feedback' element={<Feedback/>} />
         <Route path='/shop' element={<Shop/>} />
+        <Route path='/otp-verification/:type/:userId' element={<OtpVerification/>} />
       </Routes>
     </BrowserRouter>
   )
