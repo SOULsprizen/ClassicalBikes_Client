@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { validationSignUpSchema } from './Validation';
 import {showSuccessToast,showErrorToast} from '../tostNotification/Notification'
 import {useNavigate} from 'react-router-dom'
+import {APIURL} from '../../GlobalAPIURL'
 
 export default function SignUp() {
 
@@ -19,10 +20,13 @@ export default function SignUp() {
     onSubmit: async (values, { resetForm }) => {
       try {
         
-        const response = await axios.post('http://localhost:8080/CreateUser', values);
+        const response = await axios.post(`${APIURL}CreateUser`, values);
         const id = response.data.data._id
+        const email = response.data.data.email
+        
         if(response.status === 200 || response.status === 201){
           showSuccessToast(response.data.msg);
+          sessionStorage.setItem('Useremail', email)
           navigate(`/otp-verification/user_otp/${id}`)
           resetForm();
         }
