@@ -8,15 +8,16 @@ import { showSuccessToast, showErrorToast } from '../tostNotification/Notificati
 import { useNavigate } from 'react-router-dom';
 import { APIURL } from '../../GlobalAPIURL';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { motion } from 'framer-motion';
 import { containerVariants, itemVariants, buttonVariants } from './Motion'
+import {useAuth} from '../../context/AuthContext'
 
 
 export default function LogIn() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
+  const {setIsLog} = useAuth();
   const {
     handleSubmit,
     handleChange,
@@ -40,6 +41,7 @@ export default function LogIn() {
           showSuccessToast(response.data.msg);
           sessionStorage.setItem('UsereId', id);
           sessionStorage.setItem('UsereToken', token);
+          setIsLog(true)
           navigate(`/`);
           resetForm();
         }

@@ -11,6 +11,7 @@
     "host": "vite --host"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.6",
     "@tailwindcss/vite": "^4.1.8",
     "axios": "^1.10.0",
     "formik": "^2.4.6",

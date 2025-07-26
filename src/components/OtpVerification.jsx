@@ -37,6 +37,11 @@ const OtpVerification = () => {
       setCanResend(false);
       setTimeLeft(30);
 
+      const response = axios.get(`${APIURL}resendOtp/${userId}`);
+
+      showSuccessToast("New OTP has been sent to your email");
+
+      console.log(response)
 
       const timer = setInterval(() => {
         setTimeLeft((prev) => {

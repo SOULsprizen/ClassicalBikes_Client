@@ -4,6 +4,8 @@ import { MdInfo } from 'react-icons/md';
 import { FaBars, FaUserPlus, FaSignInAlt } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import ProfileD from './DropDown/ProfileD';
+import { useAuth } from '../../context/AuthContext'
 
 export default function Navbar() {
     const MENUDATA = [
@@ -22,6 +24,7 @@ export default function Navbar() {
     ];
 
     const [isOpen, setIsOpen] = useState(false);
+    const { isLog } = useAuth();
 
     return (
         <header className="bg-black text-white shadow-lg sticky top-0 z-50">
@@ -40,14 +43,19 @@ export default function Navbar() {
                     ))}
                 </ul>
 
-                <div className="hidden md:flex gap-4">
-                    {AuthData.map(({ name, icon, link }, i) => (
-                        <Link key={i} to={link} className="flex items-center gap-2 bg-yellow-400 text-black px-4 py-1.5 rounded-full hover:bg-yellow-500 transition">
-                            {icon}
-                            {name}
-                        </Link>
-                    ))}
-                </div>
+                {
+                    isLog ? <ProfileD /> :
+                        <div className="hidden md:flex gap-4">
+                            {AuthData.map(({ name, icon, link }, i) => (
+                                <Link key={i} to={link} className="flex items-center gap-2 bg-yellow-400 text-black px-4 py-1.5 rounded-full hover:bg-yellow-500 transition">
+                                    {icon}
+                                    {name}
+                                </Link>
+                            ))}
+                        </div>
+                }
+
+
 
                 <div className="md:hidden text-2xl text-yellow-400">
                     {isOpen ? <IoClose onClick={() => setIsOpen(false)} /> : <FaBars onClick={() => setIsOpen(true)} />}
