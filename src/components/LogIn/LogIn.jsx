@@ -17,7 +17,7 @@ import {useAuth} from '../../context/AuthContext'
 export default function LogIn() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const {setIsLog} = useAuth();
+  const {setIsLog,setUserDashboard} = useAuth();
   const {
     handleSubmit,
     handleChange,
@@ -42,6 +42,7 @@ export default function LogIn() {
           sessionStorage.setItem('UsereId', id);
           sessionStorage.setItem('UsereToken', token);
           setIsLog(true)
+          setUserDashboard(true)
           navigate(`/`);
           resetForm();
         }

@@ -1,21 +1,19 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import {
-    FiUser,
-    FiSettings,
-    FiLogOut,
-    FiChevronDown,
-    FiMail
-} from 'react-icons/fi'
+import { FiUser, FiSettings, FiLogOut, FiMail } from 'react-icons/fi'
 import { useAuth } from '../../../context/AuthContext'
-import { use } from 'react'
+import { Link } from 'react-router-dom';
+
 
 export default function ProfileD() {
 
-    const { setIsLog } = useAuth();
-    const LogOutUser = () => setIsLog(false);
+    const { setIsLog, setUserDashboard } = useAuth();
+    const LogOutUser = () => {
+        setIsLog(false)
+        setUserDashboard(false)
+    };
     const Data = [
         { name: 'Profile', link: '/profile', icon: <FiUser className="mr-2" /> },
-        { name: 'Settings', link: '/setting', icon: <FiSettings className="mr-2" /> },
+        { name: 'Settings', link: '/user_dashboard', icon: <FiSettings className="mr-2" /> },
         { name: 'Sign Out', Click: LogOutUser, icon: <FiLogOut className="mr-2" /> },
     ]
 
@@ -51,14 +49,14 @@ export default function ProfileD() {
                             onClick={Click}
                         >
                             {({ focus }) => (
-                                <a
-                                    href={link}
+                                <Link
+                                    to={link}
                                     className={`flex items-center px-4 py-2 text-sm ${focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                                         }`}
                                 >
                                     {icon}
                                     {name}
-                                </a>
+                                </Link>
                             )}
                         </MenuItem>
                     ))}

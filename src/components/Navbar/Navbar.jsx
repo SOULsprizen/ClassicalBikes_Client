@@ -27,7 +27,7 @@ export default function Navbar() {
     const { isLog } = useAuth();
 
     return (
-        <header className="bg-black text-white shadow-lg sticky top-0 z-50">
+        <header className="bg-black text-white shadow-lg fixed w-full top-0 z-50">
             <nav className="flex justify-between items-center px-6 py-4">
 
                 <h1 className="text-xl font-bold tracking-widest text-yellow-400">
